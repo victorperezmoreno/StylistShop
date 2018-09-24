@@ -38,7 +38,7 @@ namespace StylistShop.DataAccess.InMemory
 
         public void Update(Product product)
         {
-            //Look for product in DB, if found it then update otherwise display error
+            //Look for product in cache, if found it then update otherwise display error
             Product productToUpdate = products.Find(p => p.Id == product.Id);
             
             if (productToUpdate != null)
@@ -53,7 +53,7 @@ namespace StylistShop.DataAccess.InMemory
 
         public Product Find(string Id)
         {
-            //Look for product in DB, if found then return it otherwise display error
+            //Look for product in cache, if found then return it otherwise display error
             Product product = products.Find(p => p.Id == Id);
 
             if (product != null)
@@ -74,7 +74,7 @@ namespace StylistShop.DataAccess.InMemory
 
         public void Delete(string Id)
         {
-            //Look for product in DB, if found it then delete otherwise display error
+            //Look for product in cache, if found it then delete otherwise display error
             Product productToDelete = products.Find(p => p.Id == Id);
 
             if (productToDelete != null)

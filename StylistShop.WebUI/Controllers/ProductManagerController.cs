@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using StylistShop.Core.Models;
 using StylistShop.DataAccess.InMemory;
+using StylistShop.Core.ViewModels;
 
 namespace StylistShop.WebUI.Controllers
 {
@@ -13,10 +14,14 @@ namespace StylistShop.WebUI.Controllers
         //Create an instance of product repository
         ProductRepository context;
 
+        //Create an instance of productCategory repository
+        ProductCategoryRepository productCategories;
+
         //Create a constructor to initialize repository
         public ProductManagerController()
         {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
         }
         
         // GET: ProductManager
@@ -30,8 +35,14 @@ namespace StylistShop.WebUI.Controllers
         //Controller to create new product
         public ActionResult Create()
         {
-            var product = new Product();
-            return View(product);
+            //Create an instance of product viewmodel
+            var productViewModel = new ProductManagerViewModel();
+            //Add an instance of product
+            productViewModel.Product = new Product();
+            //Populate categories field
+            productViewModel.ProductCategories = productCategories.CollectionOfCategoryProducts();
+
+            return View(productViewModel);
         }
 
         [HttpPost]
@@ -55,7 +66,14 @@ namespace StylistShop.WebUI.Controllers
             var product = context.Find(Id);
             if (product != null)
             {
-                return View(product);
+                //Create an instance of product viewmodel
+                var productViewModel = new ProductManagerViewModel();
+                //Add an instance of product
+                productViewModel.Product = product;
+                //Populate categories field
+                productViewModel.ProductCategories = productCategories.CollectionOfCategoryProducts();
+
+                return View(productViewModel);
             }
             else
             {
