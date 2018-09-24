@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace StylistShop.Core.Models
 {
-    public class ProductCategory
+    public class ProductCategory : BaseEntity
     {
-        public string Id { get; set; }
+        //Below command not needed as it is defined in the BaseEntity class
+        //public string Id { get; set; }
         public string Category { get; set; }
 
-        public ProductCategory()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
+        //No need for this constructor as the ID is generated in the BaseEntity constructor
+        //public ProductCategory()
+        //{
+        //    this.Id = Guid.NewGuid().ToString();
+        //}
     }
 }

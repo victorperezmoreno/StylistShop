@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace StylistShop.Core.Models
 {
-    public class Product
+    //Product class inherits from BaseEntity
+    public class Product : BaseEntity
     {
-        public string Id { get; set; }
+        //Removed below line as BaseEntiry class already have an ID
+        //public string Id { get; set; }
 
         [StringLength(20)]
         [DisplayName("Product Name")]
@@ -22,10 +24,11 @@ namespace StylistShop.Core.Models
         public string Category { get; set; }
         public string Image { get; set; }
 
-        public Product ()
-        {
-            //Generate Id per product
-            this.Id = Guid.NewGuid().ToString();
-        }
+        //We do not need this constructor as the ID now is generated in the BaseEntity class
+        //public Product ()
+        //{
+        //    //Generate Id per product
+        //    this.Id = Guid.NewGuid().ToString();
+        //}
     }
 }

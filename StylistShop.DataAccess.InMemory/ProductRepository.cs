@@ -67,7 +67,7 @@ namespace StylistShop.DataAccess.InMemory
         }
 
         //Return a list of products
-        public IQueryable<Product> CollectionOfProducts()
+        public IQueryable<Product> Collection()
         {
             return products.AsQueryable();
         }

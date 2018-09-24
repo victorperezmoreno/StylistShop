@@ -22,8 +22,8 @@ namespace StylistShop.WebUI.Controllers
 
         public ActionResult Index()
         {
-            //Get list of product categories from DB and pass them to view
-            var productCategories = context.CollectionOfCategoryProducts().ToList();
+            //Get list of product categories from cache and pass them to view
+            var productCategories = context.Collection().ToList();
             return View(productCategories);
         }
 

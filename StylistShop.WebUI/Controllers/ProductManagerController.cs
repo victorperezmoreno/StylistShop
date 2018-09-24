@@ -12,23 +12,29 @@ namespace StylistShop.WebUI.Controllers
     public class ProductManagerController : Controller
     {
         //Create an instance of product repository
-        ProductRepository context;
+        //ProductRepository context;
+
+        //Create product object using the generics created. Disabled last command
+        InMemoryRepository<Product> context;
 
         //Create an instance of productCategory repository
-        ProductCategoryRepository productCategories;
+        // ProductCategoryRepository productCategories;
+        
+        //Create product category object using the generics created. Disabled last command 
+        InMemoryRepository<ProductCategory> productCategories;   
 
         //Create a constructor to initialize repository
         public ProductManagerController()
         {
-            context = new ProductRepository();
-            productCategories = new ProductCategoryRepository();
+            context = new InMemoryRepository<Product>();
+            productCategories = new InMemoryRepository<ProductCategory>();
         }
         
         // GET: ProductManager
         public ActionResult Index()
         {
             //Get list of products from DB and pass them to view
-            var products = context.CollectionOfProducts().ToList();
+            var products = context.Collection().ToList();
             return View(products);
         }
 
@@ -40,7 +46,7 @@ namespace StylistShop.WebUI.Controllers
             //Add an instance of product
             productViewModel.Product = new Product();
             //Populate categories field
-            productViewModel.ProductCategories = productCategories.CollectionOfCategoryProducts();
+            productViewModel.ProductCategories = productCategories.Collection();
 
             return View(productViewModel);
         }
@@ -71,7 +77,7 @@ namespace StylistShop.WebUI.Controllers
                 //Add an instance of product
                 productViewModel.Product = product;
                 //Populate categories field
-                productViewModel.ProductCategories = productCategories.CollectionOfCategoryProducts();
+                productViewModel.ProductCategories = productCategories.Collection();
 
                 return View(productViewModel);
             }
