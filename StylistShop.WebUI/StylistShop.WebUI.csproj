@@ -191,6 +191,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -301,6 +302,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\ProductManager\Index.cshtml" />
+    <Content Include="Views\ProductManager\Create.cshtml" />
+    <Content Include="Views\ProductManager\Edit.cshtml" />
+    <Content Include="Views\ProductManager\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +324,24 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StylistShop.Core\StylistShop.Core.csproj">
+      <Project>{6e825d72-1710-4881-bab7-9e6d4c861023}</Project>
+      <Name>StylistShop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StylistShop.DataAccess.InMemory\StylistShop.DataAccess.InMemory.csproj">
+      <Project>{d5b36ca1-4f61-4836-85dc-7355a834b5d6}</Project>
+      <Name>StylistShop.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StylistShop.DataAccess.SQL\StylistShop.DataAccess.SQL.csproj">
+      <Project>{08ff193b-826a-4317-9129-85e499402e81}</Project>
+      <Name>StylistShop.DataAccess.SQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StylistShop.Services\StylistShop.Services.csproj">
+      <Project>{4db4254c-e52c-49b4-abc0-479cac5a3452}</Project>
+      <Name>StylistShop.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
