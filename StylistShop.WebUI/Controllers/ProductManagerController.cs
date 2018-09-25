@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using StylistShop.Core.Models;
 using StylistShop.DataAccess.InMemory;
 using StylistShop.Core.ViewModels;
+using StylistShop.Core.Contracts;
 
 namespace StylistShop.WebUI.Controllers
 {
@@ -15,19 +16,24 @@ namespace StylistShop.WebUI.Controllers
         //ProductRepository context;
 
         //Create product object using the generics created. Disabled last command
-        InMemoryRepository<Product> context;
+        //InMemoryRepository<Product> context;
 
         //Create an instance of productCategory repository
         // ProductCategoryRepository productCategories;
         
         //Create product category object using the generics created. Disabled last command 
-        InMemoryRepository<ProductCategory> productCategories;   
+        //InMemoryRepository<ProductCategory> productCategories;
+
+        //Interface implementation, so we get rid of Generics
+        IRepository<Product> context;
+        IRepository<ProductCategory> productCategories;
 
         //Create a constructor to initialize repository
-        public ProductManagerController()
+        //Passing a class that implements an IRepository product and an IRepository productCategory
+        public ProductManagerController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
         {
-            context = new InMemoryRepository<Product>();
-            productCategories = new InMemoryRepository<ProductCategory>();
+            context = productContext;
+            productCategories = productCategoryContext;
         }
         
         // GET: ProductManager

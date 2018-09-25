@@ -1,4 +1,5 @@
-﻿using StylistShop.Core.Models;
+﻿using StylistShop.Core.Contracts;
+using StylistShop.Core.Models;
 using StylistShop.DataAccess.InMemory;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,15 @@ namespace StylistShop.WebUI.Controllers
     {
         // GET: ProductCategoryManager
         //Create an instance of productCategory repository
-        ProductCategoryRepository context;
+        //ProductCategoryRepository context;
+
+        //Interface implementation
+        IRepository<ProductCategory> context;
 
         //Create a constructor to initialize repository
-        public ProductCategoryManagerController()
+        public ProductCategoryManagerController(IRepository<ProductCategory> categoryContext)
         {
-            context = new ProductCategoryRepository();
+            this.context = categoryContext;
         }
 
         public ActionResult Index()

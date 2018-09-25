@@ -1,4 +1,5 @@
-﻿using StylistShop.Core.Models;
+﻿using StylistShop.Core.Contracts;
+using StylistShop.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace StylistShop.DataAccess.InMemory
 {
     //<T> is a placeholder as we will declare the class as a generic class
-    public class InMemoryRepository<T> where T : BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where T : BaseEntity
     {
         ObjectCache cache = MemoryCache.Default;
         List<T> items;
