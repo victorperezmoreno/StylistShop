@@ -7,6 +7,7 @@ using StylistShop.Core.Models;
 using StylistShop.DataAccess.InMemory;
 using StylistShop.Core.ViewModels;
 using StylistShop.Core.Contracts;
+using System.IO;
 
 namespace StylistShop.WebUI.Controllers
 {
@@ -58,10 +59,17 @@ namespace StylistShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid == true)
             {
+                //Assign image to product to create
+                if (file != null)
+                {
+                    //Assign product Id as the name in case user uploads files with same names
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+                }
                 context.Insert(product);
                 context.Commit();
 
@@ -94,16 +102,23 @@ namespace StylistShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product, string Id)
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase file)
         {
             var productToEdit = context.Find(Id);
             if (product != null)
             {
                 if (ModelState.IsValid)
                 {
+                    //Assign image to productToEdit
+                    if (file != null)
+                    {
+                        //Assign product Id as the name in case user uploads files with same names
+                        productToEdit.Image = product.Id + Path.GetExtension(file.FileName);
+                        file.SaveAs(Server.MapPath("//Content//ProductImages//") + productToEdit.Image);
+                    }
+
                     productToEdit.Category = product.Category;
                     productToEdit.Description = product.Description;
-                    productToEdit.Image = product.Image;
                     productToEdit.Name = product.Name;
                     productToEdit.Price = product.Price;
 
