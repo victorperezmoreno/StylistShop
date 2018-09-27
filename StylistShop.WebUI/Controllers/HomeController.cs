@@ -1,5 +1,6 @@
 ﻿using StylistShop.Core.Contracts;
 using StylistShop.Core.Models;
+using StylistShop.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,26 @@ namespace StylistShop.WebUI.Controllers
             context = productContext;
             productCategories = productCategoryContext;
         }
-
-        public ActionResult Index()
+                                 //if no category is passed then display all products
+        public ActionResult Index(string category = null)
         {
             //Send a list of products to the View
-            var products = context.Collection().ToList();
-            return View(products);
+            List<Product> products;
+            var categories = productCategories.Collection().ToList();
+            if (category==null)
+            {
+                products = context.Collection().ToList();
+            }
+            else
+            {
+                products = context.Collection().Where(prod => prod.Category == category).ToList();
+            }
+
+            var productListModel = new ProductListViewModel();
+            productListModel.Products = products;
+            productListModel.ProductCategories = categories;
+
+            return View(productListModel);
         }
 
         public ActionResult Details(string Id)

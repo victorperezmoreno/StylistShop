@@ -1,34 +1,55 @@
-﻿@model IEnumerable<StylistShop.Core.Models.Product>
+﻿@model StylistShop.Core.ViewModels.ProductListViewModel
 
 @{
     ViewBag.Title = "Home Page";
 }
 
 <h1>Products</h1>
-@foreach (var item in Model)
-{
-    @*Setup a table 4 columns wide*@
-    <div class="col-md-4" style="height:450px;padding:10px;margin:10px;border:solid thin whitesmoke">
-        <div class="col-md-12">
-            <img class="img" style="height:250px" src="~/Content/ProductImages/@item.Image" />
-        </div>
-
-        <div class="col-md-12">
-            <strong>@Html.ActionLink(item.Name, "Details", new {id = item.Id }) </strong>
-        </div>
-
-        <div class="col-md-12">
-           <p>@item.Description</p>
-        </div>
-
-        <div class="col-md-12">
-            <p>@item.Category</p>
-        </div>
-
-        <div class="col-md-12">
-            <a href="#" class="btn btn-default">Add to Basket</a>
+<div class="container">
+    <div class="col-md-2">
+        <h4>Filter</h4>
+        <div class="list-group float-left">
+            @*if category is null use style "list-group-item-active" else use "list-group-item" *@
+            @Html.ActionLink("All", "Index", null, new { @class = Request["Category"] == null ? "list-group-item active" : "list-group-item" })
+            @foreach (var categ in Model.ProductCategories)
+            {
+                @Html.ActionLink(categ.Category, "Index", new { category = categ.Category }, new { @class = Request["Category"] == categ.Category ? "list-group-item active" : "list-group-item" })
+            }
         </div>
     </div>
-}
+
+    <div class="col-md-10 float-left">
+        @foreach (var item in Model.Products)
+        {
+            @*Setup a table 4 columns wide*@
+            <div class="col-md-4" style="height:450px;padding:10px;margin-left:auto; margin-right:auto;border:solid thin whitesmoke; display:inline-block; text-align:center; ">
+
+                <div class="col-md-6">
+                    <img class="mx-auto d-block" alt="Responsive image" style="height:250px" src="~/Content/ProductImages/@item.Image" />
+                </div>
+
+                <div class="col-md-6">
+                    <strong>@Html.ActionLink(item.Name, "Details", new { id = item.Id }) </strong>
+                </div>
+
+                <div class="col-md-6">
+                    <p>@item.Description</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p>@item.Category</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p>@item.Price</p>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-outline-primary">Add to Basket</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 @*Clears any existing formatting and reset any layout, also fix any issues with any footers, etc*@
 <div class="col-md-12 clearfix"></div>
